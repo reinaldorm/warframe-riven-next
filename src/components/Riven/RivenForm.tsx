@@ -42,7 +42,7 @@ export default function RivenForm({
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const newQuery = e.target.value;
     setQuery(newQuery);
-    updateSuggestions(newQuery);
+    // updateSuggestions(newQuery);
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

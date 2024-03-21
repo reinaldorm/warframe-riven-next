@@ -16,3 +16,9 @@ body {
   width: 100dvw;
   height: 100dvh;
 }
+
+@media (max-width: 400px) {
+  * {
+    font-size: 0.75rem;
+  }
+}

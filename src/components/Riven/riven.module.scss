@@ -163,3 +163,16 @@
   margin-bottom: 0.5rem;
   text-transform: capitalize;
 }
+
+@media (max-width: 400px) {
+  .rivenTable {
+    th,
+    td {
+      padding: 0.5rem;
+    }
+    .rivenTableHead {
+      background-color: #9223ec;
+      color: #ffffff;
+    }
+  }
+}
