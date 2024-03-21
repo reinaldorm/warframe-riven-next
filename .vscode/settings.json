@@ -1,0 +1,11 @@
+{
+  "files.exclude": {
+    ".vscode": true,
+    ".next": true,
+    "node_modules": true,
+    "**.git**": true,
+    "**.json**": true,
+    "next**": true,
+    "**.md**": true
+  }
+}

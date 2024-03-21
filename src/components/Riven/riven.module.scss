@@ -1,0 +1,165 @@
+.searchForm {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  border: 2px solid transparent;
+  transition: border 0.2s ease;
+  grid-column: 1 / 2;
+  grid-row: 1/ 2;
+
+  &:focus {
+    border: 2px solid #666;
+  }
+}
+
+.searchButton {
+  padding: 0.75rem 0.5rem;
+  background-color: #a749ff;
+  border: none;
+  outline: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  grid-column: 2 / -1;
+  grid-row: 1 / 2;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:active {
+    scale: 0.95;
+  }
+}
+
+.searchError {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  grid-column: 1 / -1;
+  grid-row: 2 / -1;
+
+  &[data-level="0"] {
+    color: #f1ff34;
+  }
+
+  &[data-level="1"] {
+    color: #ffa034;
+  }
+
+  &[data-level="2"] {
+    color: #ff5d34;
+  }
+}
+
+.searchSuggestions {
+  position: absolute;
+  background-color: #444;
+  list-style: none;
+
+  li {
+    font-family: inherit;
+    font-size: inherit;
+  }
+}
+
+.rivenTable {
+  th,
+  td {
+    padding: 0.75rem;
+    background-color: #333;
+    border-radius: 1px;
+    text-align: center;
+  }
+  .rivenTableHead {
+    background-color: #9223ec;
+    color: #ffffff;
+  }
+}
+
+.rivenPicker {
+  padding: 0.25rem 0rem;
+  margin-inline: 0.125rem;
+  border-radius: 0.125rem;
+  width: 12rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+
+  > button {
+    pointer-events: none;
+    padding: 0.75rem 0rem;
+    background: none;
+    border: none;
+    font-size: inherit;
+    font-family: inherit;
+  }
+
+  ul {
+    padding-inline: 1rem;
+    width: 100%;
+    list-style-type: none;
+    background: #292929;
+    position: absolute;
+    top: 0;
+    z-index: 99;
+    li {
+      button {
+        padding: 0.75rem 0rem;
+        background: none;
+        border: none;
+        font-size: inherit;
+        font-family: inherit;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &::after {
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: #555;
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    display: block;
+    margin-left: 0.5rem;
+  }
+}
+
+.rivenClear {
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: end;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  color: #666;
+  font-weight: 600;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.title {
+  color: #666;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+}
