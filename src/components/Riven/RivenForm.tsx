@@ -13,36 +13,11 @@ export default function RivenForm({
   errorStatus,
 }: RivenFormProps) {
   const [query, setQuery] = React.useState("");
-  const [searchSuggestions, setSearchSuggestions] = React.useState<Suggestions>(
-    {
-      query: "",
-      suggestions: [],
-    }
-  );
-
-  async function updateSuggestions(suggestionQuery: string) {
-    if (
-      suggestionQuery.length === 2 &&
-      suggestionQuery !== searchSuggestions.query
-    ) {
-      const suggestionsData = await getSuggestions();
-
-      setSearchSuggestions({
-        query: suggestionQuery,
-        suggestions: suggestionsData,
-      });
-    } else if (query.length < 2) {
-      setSearchSuggestions({
-        query: "",
-        suggestions: [],
-      });
-    }
-  }
+  const [suggestions, setSuggestions] = React.useState<Suggestion[]>([]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const newQuery = e.target.value;
     setQuery(newQuery);
-    // updateSuggestions(newQuery);
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -50,16 +25,33 @@ export default function RivenForm({
     handleSearch(query);
   }
 
+  React.useEffect(() => {
+    async function getSuggestionsFromServer() {
+      const suggestionsResponse = await getSuggestions();
+      setSuggestions(suggestionsResponse);
+    }
+
+    getSuggestionsFromServer();
+  }, []);
+
   return (
     <form className={styles.searchForm} action="/" onSubmit={handleSubmit}>
-      <input
-        className={styles.searchInput}
-        placeholder="Riven's name"
-        onChange={handleChange}
-        value={query}
-        id="riven"
-        name="riven"
-      />
+      <div className={styles.searchBox}>
+        <input
+          className={styles.searchInput}
+          placeholder="Riven's name"
+          onChange={handleChange}
+          value={query}
+          id="riven"
+          name="riven"
+        />
+
+        <RivenSuggestions
+          query={query}
+          suggestions={suggestions}
+          handleSearch={handleSearch}
+        />
+      </div>
       <button className={styles.searchButton}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -74,12 +66,6 @@ export default function RivenForm({
           />
         </svg>
       </button>
-      {/* {searchSuggestions.suggestions.length > 0 && (
-        <RivenSuggestions
-          query={query}
-          suggestions={searchSuggestions.suggestions}
-        />
-      )} */}
       {errorStatus.status && (
         <p
           data-level={String(errorStatus.level)}
