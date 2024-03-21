@@ -54,7 +54,7 @@ export default function Riven() {
   async function handleSearch(query: string) {
     updateErrorStatus(false);
     if (!query) {
-      updateErrorStatus(true, "What exacly are you trying to do?", 0);
+      updateErrorStatus(true, "May god free you of your dumbness.", 0);
       return;
     }
     setLoading(true);
