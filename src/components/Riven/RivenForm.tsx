@@ -38,6 +38,7 @@ export default function RivenForm({
     <form className={styles.searchForm} action="/" onSubmit={handleSubmit}>
       <div className={styles.searchBox}>
         <input
+          autoComplete="off"
           className={styles.searchInput}
           placeholder="Riven's name"
           onChange={handleChange}
