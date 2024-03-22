@@ -4,6 +4,7 @@ import React from "react";
 import styles from "./riven.module.scss";
 import RivenTable from "./RivenTable";
 import RivenForm from "./RivenForm";
+import { createPortal } from "react-dom";
 
 export default function Riven() {
   const [riven, setRiven] = React.useState<RivenInfo | null>(null);

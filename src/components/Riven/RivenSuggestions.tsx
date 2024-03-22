@@ -7,25 +7,33 @@ interface RivenSuggestionsProps {
   handleSearch: (query: string) => void;
 }
 
+function startsWith(str: string, substr: string) {
+  if (str.toLowerCase().substring(0, substr.length) === substr.toLowerCase()) {
+    return true;
+  } else return false;
+}
+
 export default function RivenSuggestions({
   query,
   handleSearch,
 }: RivenSuggestionsProps) {
-  return query.length >= 2 ? (
+  return (
     <ul className={styles.searchSuggestions}>
-      {suggestions
-        .filter((name) => name.toLowerCase().startsWith(query))
-        .map((name) => (
-          <li
-            aria-label="search for suggestion"
-            onClick={() => handleSearch(name)}
-            key={name + String(Math.random())}
-          >
-            {name}
-          </li>
-        ))}
+      {query.length >= 2 ? (
+        suggestions
+          .filter((name) => startsWith(name, query))
+          .map((name) => (
+            <li
+              aria-label="search for suggestion"
+              onClick={() => handleSearch(name)}
+              key={name + String(Math.random())}
+            >
+              {name}
+            </li>
+          ))
+      ) : (
+        <></>
+      )}
     </ul>
-  ) : (
-    <></>
   );
 }

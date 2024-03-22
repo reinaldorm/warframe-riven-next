@@ -35,7 +35,6 @@ export default function RivenForm({
           id="riven"
           name="riven"
         />
-
         <RivenSuggestions query={query} handleSearch={handleSearch} />
       </div>
       <button className={styles.searchButton}>
