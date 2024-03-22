@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./riven.module.scss";
-import getSuggestions from "@/actions/getSuggestions";
 import RivenSuggestions from "./RivenSuggestions";
 
 interface RivenFormProps {
@@ -13,7 +12,6 @@ export default function RivenForm({
   errorStatus,
 }: RivenFormProps) {
   const [query, setQuery] = React.useState("");
-  const [suggestions, setSuggestions] = React.useState<Suggestion[]>([]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const newQuery = e.target.value;
@@ -24,15 +22,6 @@ export default function RivenForm({
     e.preventDefault();
     handleSearch(query);
   }
-
-  React.useEffect(() => {
-    async function getSuggestionsFromServer() {
-      const suggestionsResponse = await getSuggestions();
-      setSuggestions(suggestionsResponse);
-    }
-
-    getSuggestionsFromServer();
-  }, []);
 
   return (
     <form className={styles.searchForm} action="/" onSubmit={handleSubmit}>
@@ -47,11 +36,7 @@ export default function RivenForm({
           name="riven"
         />
 
-        <RivenSuggestions
-          query={query}
-          suggestions={suggestions}
-          handleSearch={handleSearch}
-        />
+        <RivenSuggestions query={query} handleSearch={handleSearch} />
       </div>
       <button className={styles.searchButton}>
         <svg

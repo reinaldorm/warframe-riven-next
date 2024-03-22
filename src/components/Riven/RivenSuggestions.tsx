@@ -1,15 +1,14 @@
 import React from "react";
 import styles from "./riven.module.scss";
+import suggestions from "@/utils/suggestions.json";
 
 interface RivenSuggestionsProps {
   query: string;
-  suggestions: Suggestion[];
   handleSearch: (query: string) => void;
 }
 
 export default function RivenSuggestions({
   query,
-  suggestions,
   handleSearch,
 }: RivenSuggestionsProps) {
   return query.length >= 2 ? (
