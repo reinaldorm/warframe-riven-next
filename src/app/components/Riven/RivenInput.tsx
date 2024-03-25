@@ -12,9 +12,13 @@ export default function RivenInput({ query, updateQuery }: RivenInputProps) {
   const [suggestion, setSuggestion] = React.useState("");
 
   function updateSuggestion() {
-    const firstValidSuggestion = suggestions.filter((name) =>
+    let firstValidSuggestion = suggestions.filter((name) =>
       startsWith(name, query)
     )[0];
+
+    if (!(query[0] === query[0].toUpperCase())) {
+      firstValidSuggestion = firstValidSuggestion[0].toLowerCase() + firstValidSuggestion.slice(1)
+    }
 
     setSuggestion(firstValidSuggestion);
   }
