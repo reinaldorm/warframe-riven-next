@@ -3,7 +3,7 @@ import styles from "./riven.module.scss";
 import RivenRow from "./RivenRow";
 
 interface RivenTableProps {
-  riven: RivenInfo;
+  riven: Riven;
   updateRiven: (data: RivenResponse | null) => void;
 }
 

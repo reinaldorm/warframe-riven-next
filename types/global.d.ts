@@ -1,16 +1,15 @@
+// api types
+
 interface RivenResponse {
-  [weaponName: string]: {
-    rerolled?: RivenMod;
-    unrolled?: RivenMod;
-  };
+  [weaponName: string]: Riven;
 }
 
-interface RivenInfo {
-  rerolled?: RivenMod;
-  unrolled?: RivenMod;
+interface Riven {
+  rerolled?: RivenStatus;
+  unrolled?: RivenStatus;
 }
 
-interface RivenMod {
+interface RivenStatus {
   itemType: string;
   compatibility: string;
   rerolled: boolean;
@@ -22,9 +21,7 @@ interface RivenMod {
   median: number;
 }
 
-type ErrorLevel = 0 | 1 | 2;
-
-type Suggestion = string;
+// code types
 
 interface QueryError {
   status: boolean;
@@ -32,11 +29,38 @@ interface QueryError {
   level: ErrorLevel;
 }
 
-interface SuggestionResponse {
-  name?: string;
+interface DataResponse<T> {
+  ok: boolean;
+  data: T | null;
 }
 
-interface Suggestions {
-  query: string;
-  suggestions: Suggestion[];
+// firebase types
+
+interface RivenCollection {
+  [rivenModType: string]: {
+    [weaponName: string]: Riven;
+  };
 }
+
+type RivenCollectionArray = Array<RivenType>;
+
+interface RivenType {
+  [weaponName: string]: Riven;
+}
+
+interface RivenDocument {
+  [weaponName: string]: RivenHistory;
+}
+
+interface RivenHistory {
+  name: string;
+  date: Date;
+  pop: number;
+  max: number;
+  hPop: number;
+  lPop: number;
+}
+
+// support types
+
+type ErrorLevel = 0 | 1 | 2;

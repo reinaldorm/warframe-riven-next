@@ -29,9 +29,16 @@
   }
 }
 
+.searchSuggestion {
+  position: absolute;
+  opacity: 0.5;
+  padding: 0.75rem 1rem;
+  border: 2px solid transparent;
+}
+
 .searchSuggestions {
   width: 100%;
-  // position: absolute;
+  position: absolute;
   background-color: #444;
   list-style: none;
   border-radius: 0rem 0rem 0.25rem 0.25rem;

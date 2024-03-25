@@ -1,16 +1,14 @@
 import React from "react";
 import styles from "./riven.module.scss";
-import suggestions from "@/utils/suggestions.json";
+import suggestions from "@/app/suggestions.json";
 
 interface RivenSuggestionsProps {
   query: string;
   handleSearch: (query: string) => void;
 }
 
-function startsWith(str: string, substr: string) {
-  if (str.toLowerCase().substring(0, substr.length) === substr.toLowerCase()) {
-    return true;
-  } else return false;
+function startsWith(str: string, sub: string) {
+  return str.substring(0, sub.length).toLowerCase() === sub.toLowerCase();
 }
 
 export default function RivenSuggestions({
@@ -19,7 +17,7 @@ export default function RivenSuggestions({
 }: RivenSuggestionsProps) {
   return (
     <ul className={styles.searchSuggestions}>
-      {query.length >= 2 ? (
+      {query.length >= 1 ? (
         suggestions
           .filter((name) => startsWith(name, query))
           .map((name) => (

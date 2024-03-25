@@ -1,4 +1,4 @@
-import Riven from "@/components/Riven";
+import Riven from "@/app/components/Riven";
 import styles from "./styles/page.module.scss";
 
 export default function Home() {

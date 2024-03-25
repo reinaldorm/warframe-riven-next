@@ -7,7 +7,7 @@ import RivenForm from "./RivenForm";
 import { createPortal } from "react-dom";
 
 export default function Riven() {
-  const [riven, setRiven] = React.useState<RivenInfo | null>(null);
+  const [riven, setRiven] = React.useState<Riven | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [errorStatus, setErrorStatus] = React.useState<QueryError>({
     status: false,

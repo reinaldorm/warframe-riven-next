@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./riven.module.scss";
 import RivenSuggestions from "./RivenSuggestions";
+import RivenInput from "./RivenInput";
 
 interface RivenFormProps {
   handleSearch: (query: string) => void;
@@ -13,8 +14,7 @@ export default function RivenForm({
 }: RivenFormProps) {
   const [query, setQuery] = React.useState("");
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const newQuery = e.target.value;
+  function updateQuery(newQuery: string) {
     setQuery(newQuery);
   }
 
@@ -25,18 +25,7 @@ export default function RivenForm({
 
   return (
     <form className={styles.searchForm} action="/" onSubmit={handleSubmit}>
-      <div className={styles.searchBox}>
-        <input
-          autoComplete="off"
-          className={styles.searchInput}
-          placeholder="Riven's name"
-          onChange={handleChange}
-          value={query}
-          id="riven"
-          name="riven"
-        />
-        <RivenSuggestions query={query} handleSearch={handleSearch} />
-      </div>
+      <RivenInput query={query} updateQuery={updateQuery} />
       <button className={styles.searchButton}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
