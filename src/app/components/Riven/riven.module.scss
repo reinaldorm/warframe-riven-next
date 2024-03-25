@@ -34,44 +34,7 @@
   opacity: 0.5;
   padding: 0.75rem 1rem;
   border: 2px solid transparent;
-}
-
-.searchSuggestions {
-  width: 100%;
-  position: absolute;
-  background-color: #444;
-  list-style: none;
-  border-radius: 0rem 0rem 0.25rem 0.25rem;
-  overflow-y: scroll;
-  max-height: 10rem;
-
-  &::-webkit-scrollbar {
-    background-color: #555;
-    width: 0.5rem;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #777;
-  }
-
-  li {
-    font-family: inherit;
-    font-size: inherit;
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    &::after {
-      content: "BETA";
-      display: block;
-      font-family: inherit;
-      font-size: 0.875rem;
-      font-weight: 800;
-      color: #777;
-    }
-  }
+  font-size: 1rem;
 }
 
 .searchButton {
