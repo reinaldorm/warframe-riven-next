@@ -31,9 +31,12 @@ export default function RivenTable({ riven, updateRiven }: RivenTableProps) {
           <RivenRow label="Unrolled" info={riven.unrolled} />
         </tbody>
       </table>
-      <button onClick={() => updateRiven(null)} className={styles.rivenClear}>
-        Did you mean something else?
-      </button>
+      <div className={styles.rivenTableSubtitles}>
+        <button onClick={() => updateRiven(null)} className={styles.rivenClear}>
+          Go back
+        </button>
+        <p>Update Weekly</p>
+      </div>
     </div>
   );
 }

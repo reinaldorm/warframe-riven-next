@@ -1,4 +1,4 @@
-import { setDoc } from "firebase/firestore";
+import { setDoc, getDoc } from "firebase/firestore";
 import { historyDocRef } from "@/firebase/config";
 import {
   generateErrorResponse,
@@ -8,7 +8,23 @@ import {
 } from "@/utils";
 
 export async function GET() {
-  return Response.json({ ok: true }, { status: 200 });
+  const snapshot = await getDoc<RivenDocument, RivenDocument>(historyDocRef);
+
+  if (snapshot.exists()) {
+    return Response.json(
+      {
+        ok: true,
+        description: "Successfully retrived data",
+        data: snapshot.data(),
+      },
+      { status: 200 }
+    );
+  } else {
+    return Response.json(
+      { ok: false, description: "Could not retrive data", data: null },
+      { status: 404 }
+    );
+  }
 }
 
 export async function POST() {

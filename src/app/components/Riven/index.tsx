@@ -4,7 +4,8 @@ import React from "react";
 import styles from "./riven.module.scss";
 import RivenTable from "./RivenTable";
 import RivenForm from "./RivenForm";
-import { createPortal } from "react-dom";
+import RivenInfo from "./RivenInfo";
+import RivenTitle from "./RivenTitle";
 
 export default function Riven() {
   const [riven, setRiven] = React.useState<Riven | null>(null);
@@ -44,7 +45,7 @@ export default function Riven() {
     const rivensData = Object.values(data);
 
     if (!rivensData.length) {
-      updateErrorStatus(true, "No riven data found, try again.", 1);
+      updateErrorStatus(true, "No riven found", 1);
       return;
     }
 
@@ -55,7 +56,7 @@ export default function Riven() {
   async function handleSearch(query: string) {
     updateErrorStatus(false);
     if (!query) {
-      updateErrorStatus(true, "May god free you of your dumbness.", 0);
+      updateErrorStatus(true, "Empty input", 0);
       return;
     }
     setLoading(true);
@@ -65,7 +66,7 @@ export default function Riven() {
     );
 
     if (!response.ok) {
-      updateErrorStatus(true, "Bad request, please try again.", 2);
+      updateErrorStatus(true, "Please try again", 2);
       return;
     }
 
@@ -74,20 +75,23 @@ export default function Riven() {
   }
 
   return (
-    <div>
-      {loading ? (
-        <p>Loading...</p>
+    <div className={styles.rivenBox} data-loading={loading}>
+      {loading && (
+        <div className={styles["ldsRing"]}>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      )}
+      <div className={styles.rivenHeader}>
+        <RivenTitle riven={riven} />
+        <RivenInfo />
+      </div>
+      {riven ? (
+        <RivenTable riven={riven} updateRiven={updateRiven} />
       ) : (
-        <>
-          <h1 className={styles.title}>
-            {riven ? "Last Week Statistc" : "Insert the weapon's name"}
-          </h1>
-          {riven ? (
-            <RivenTable riven={riven} updateRiven={updateRiven} />
-          ) : (
-            <RivenForm errorStatus={errorStatus} handleSearch={handleSearch} />
-          )}
-        </>
+        <RivenForm errorStatus={errorStatus} handleSearch={handleSearch} />
       )}
     </div>
   );

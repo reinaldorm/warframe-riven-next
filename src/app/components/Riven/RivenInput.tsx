@@ -12,15 +12,17 @@ export default function RivenInput({ query, updateQuery }: RivenInputProps) {
   const [suggestion, setSuggestion] = React.useState("");
 
   function updateSuggestion() {
-    let firstValidSuggestion = suggestions.filter((name) =>
-      startsWith(name, query)
-    )[0];
+    let newSuggestion = suggestions.find((name) => startsWith(name, query));
 
-    if (!(query[0] === query[0].toUpperCase())) {
-      firstValidSuggestion = firstValidSuggestion[0].toLowerCase() + firstValidSuggestion.slice(1)
+    if (newSuggestion) {
+      newSuggestion =
+        query[0] === query.toLowerCase()[0]
+          ? newSuggestion[0].toLowerCase() + newSuggestion.slice(1)
+          : newSuggestion;
+      setSuggestion(newSuggestion);
+    } else {
+      setSuggestion("");
     }
-
-    setSuggestion(firstValidSuggestion);
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -49,6 +51,22 @@ export default function RivenInput({ query, updateQuery }: RivenInputProps) {
         id="riven"
         name="riven"
       />
+      <button className={styles.searchButton}>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11.2846 11.3599L13.6 13.5999M12.8533 7.62657C12.8533 10.5132 10.5133 12.8532 7.62667 12.8532C4.74006 12.8532 2.4 10.5132 2.4 7.62657C2.4 4.73996 4.74006 2.3999 7.62667 2.3999C10.5133 2.3999 12.8533 4.73996 12.8533 7.62657Z"
+            stroke="#585858"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./riven.module.scss";
-import RivenSuggestions from "./RivenSuggestions";
 import RivenInput from "./RivenInput";
+import Link from "next/link";
 
 interface RivenFormProps {
   handleSearch: (query: string) => void;
@@ -26,28 +26,33 @@ export default function RivenForm({
   return (
     <form className={styles.searchForm} action="/" onSubmit={handleSubmit}>
       <RivenInput query={query} updateQuery={updateQuery} />
-      <button className={styles.searchButton}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="#fff"
-          viewBox="0 0 16 16"
-        >
-          <path
-            fillRule="evenodd"
-            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-          />
-        </svg>
-      </button>
-      {errorStatus.status && (
-        <p
-          data-level={String(errorStatus.level)}
-          className={styles.searchError}
-        >
-          {errorStatus.htmlDesc}
-        </p>
-      )}
+      <div className={styles.searchSubtitles}>
+        <Link className={styles.searchLink} href={"/"}>
+          See top rivens{" "}
+          <svg
+            width="17"
+            height="17"
+            viewBox="0 0 17 17"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.77644 5.95159L10.9602 6.01052M10.9602 6.01052L11.0191 10.1942M10.9602 6.01052L6.01041 10.9603"
+              stroke="#6B6B6B"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </Link>
+        {errorStatus.status && (
+          <p
+            data-level={String(errorStatus.level)}
+            className={styles.searchError}
+          >
+            {errorStatus.htmlDesc}
+          </p>
+        )}
+      </div>
     </form>
   );
 }
