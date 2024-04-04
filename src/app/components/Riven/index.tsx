@@ -7,36 +7,32 @@ import RivenForm from "./RivenForm";
 import RivenInfo from "./RivenInfo";
 import RivenTitle from "./RivenTitle";
 
+export interface QueryError {
+  status: boolean;
+  description: string;
+  level: 0 | 1 | 2;
+}
+
 export default function Riven() {
-  const [riven, setRiven] = React.useState<Riven | null>(null);
+  const [riven, setRiven] = React.useState<RivenData | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [errorStatus, setErrorStatus] = React.useState<QueryError>({
     status: false,
-    htmlDesc: "",
+    description: "",
     level: 0,
   });
 
-  function updateErrorStatus(status: false): void;
-  function updateErrorStatus(
-    status: true,
-    htmlDesc: string,
-    level: ErrorLevel
-  ): void;
-  function updateErrorStatus(
-    status: boolean,
-    htmlDesc?: string,
-    level?: ErrorLevel
-  ) {
-    if (status && htmlDesc && level !== undefined) {
-      setErrorStatus({ status: true, htmlDesc, level });
+  function updateErrorStatus({ status, description, level }: QueryError) {
+    if (status && description && level !== undefined) {
+      setErrorStatus({ status: true, description, level });
     } else {
-      setErrorStatus({ status: false, htmlDesc: "", level: 0 });
+      setErrorStatus({ status: false, description: "", level: 0 });
     }
 
     setLoading(false);
   }
 
-  function updateRiven(data: RivenResponse | null) {
+  function updateRiven(data: RivenCollection | null) {
     if (data === null) {
       setRiven(data);
       return;
@@ -45,7 +41,11 @@ export default function Riven() {
     const rivensData = Object.values(data);
 
     if (!rivensData.length) {
-      updateErrorStatus(true, "No riven found", 1);
+      updateErrorStatus({
+        status: true,
+        description: "No Riven found",
+        level: 1,
+      });
       return;
     }
 
@@ -54,9 +54,13 @@ export default function Riven() {
   }
 
   async function handleSearch(query: string) {
-    updateErrorStatus(false);
+    updateErrorStatus({ status: false, description: "", level: 0 });
     if (!query) {
-      updateErrorStatus(true, "Empty input", 0);
+      updateErrorStatus({
+        status: true,
+        description: "Empty Input",
+        level: 0,
+      });
       return;
     }
     setLoading(true);
@@ -66,18 +70,22 @@ export default function Riven() {
     );
 
     if (!response.ok) {
-      updateErrorStatus(true, "Please try again", 2);
+      updateErrorStatus({
+        status: true,
+        description: "Please try again",
+        level: 2,
+      });
       return;
     }
 
-    const data = (await response.json()) as RivenResponse;
+    const data = (await response.json()) as RivenCollection;
     updateRiven(data);
   }
 
   return (
     <div className={styles.rivenBox} data-loading={loading}>
       {loading && (
-        <div className={styles["ldsRing"]}>
+        <div className={styles.ldsRing}>
           <div></div>
           <div></div>
           <div></div>

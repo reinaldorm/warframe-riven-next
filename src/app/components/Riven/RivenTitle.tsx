@@ -1,7 +1,7 @@
 import styles from "./riven.module.scss";
 
 interface RivenTitle {
-  riven: Riven | null;
+  riven: RivenData | null;
 }
 
 export default function RivenTitle({ riven }: RivenTitle) {

@@ -1,6 +1,6 @@
 interface RivenRowProps {
   label: string;
-  info: RivenStatus | undefined;
+  info: RivenStatistics | undefined;
 }
 
 export default function RivenRow({ label, info }: RivenRowProps) {

@@ -3,8 +3,8 @@ import styles from "./riven.module.scss";
 import RivenRow from "./RivenRow";
 
 interface RivenTableProps {
-  riven: Riven;
-  updateRiven: (data: RivenResponse | null) => void;
+  riven: RivenData;
+  updateRiven: (data: RivenCollection | null) => void;
 }
 
 export default function RivenTable({ riven, updateRiven }: RivenTableProps) {

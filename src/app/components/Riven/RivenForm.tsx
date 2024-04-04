@@ -1,7 +1,10 @@
 import React from "react";
-import styles from "./riven.module.scss";
-import RivenInput from "./RivenInput";
 import Link from "next/link";
+import { startsWith } from "@/utils";
+import suggestions from "@/app/suggestions.json";
+import styles from "./riven.module.scss";
+
+import type { QueryError } from "./index";
 
 interface RivenFormProps {
   handleSearch: (query: string) => void;
@@ -12,20 +15,77 @@ export default function RivenForm({
   handleSearch,
   errorStatus,
 }: RivenFormProps) {
+  const inputRef = React.useRef<null | HTMLInputElement>(null);
   const [query, setQuery] = React.useState("");
+  const [suggestion, setSuggestion] = React.useState("");
 
-  function updateQuery(newQuery: string) {
-    setQuery(newQuery);
+  function updateSuggestion() {
+    let newSuggestion = suggestions.find((name) => startsWith(name, query));
+
+    if (newSuggestion) {
+      newSuggestion =
+        query + newSuggestion.slice(query.length, newSuggestion.length);
+      setSuggestion(newSuggestion);
+    } else {
+      setSuggestion("");
+    }
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    handleSearch(query);
+
+    if (suggestion) {
+      handleSearch(suggestion);
+    } else {
+      handleSearch(query);
+    }
   }
+
+  React.useEffect(() => {
+    if (query.length > 0) {
+      updateSuggestion();
+    } else {
+      setSuggestion("");
+    }
+  }, [query]);
+
+  React.useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   return (
     <form className={styles.searchForm} action="/" onSubmit={handleSubmit}>
-      <RivenInput query={query} updateQuery={updateQuery} />
+      <div className={styles.searchBox}>
+        <label className={styles.searchSuggestion} htmlFor="riven">
+          {suggestion}
+        </label>
+        <input
+          ref={inputRef}
+          autoComplete="off"
+          className={styles.searchInput}
+          placeholder="Riven's name"
+          onChange={(e) => setQuery(e.target.value)}
+          value={query}
+          id="riven"
+          name="riven"
+        />
+        <button className={styles.searchButton}>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.2846 11.3599L13.6 13.5999M12.8533 7.62657C12.8533 10.5132 10.5133 12.8532 7.62667 12.8532C4.74006 12.8532 2.4 10.5132 2.4 7.62657C2.4 4.73996 4.74006 2.3999 7.62667 2.3999C10.5133 2.3999 12.8533 4.73996 12.8533 7.62657Z"
+              stroke="#585858"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+      </div>
       <div className={styles.searchSubtitles}>
         <Link className={styles.searchLink} href={"/"}>
           See top rivens{" "}
@@ -49,7 +109,7 @@ export default function RivenForm({
             data-level={String(errorStatus.level)}
             className={styles.searchError}
           >
-            {errorStatus.htmlDesc}
+            {errorStatus.description}
           </p>
         )}
       </div>

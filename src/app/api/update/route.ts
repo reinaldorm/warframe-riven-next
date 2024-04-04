@@ -1,8 +1,6 @@
 import { setDoc } from "firebase/firestore";
 import { historyDocRef } from "@/firebase/config";
 import {
-  generateErrorResponse,
-  generateSucessfulResponse,
   getAllRivenHistory,
   getAllRivenDataFromApi,
   updateRivenHistory,
@@ -13,21 +11,21 @@ export async function POST() {
   const apiData = await getAllRivenDataFromApi();
   const rivenHistory = await getAllRivenHistory();
 
-  if (!apiData.ok || !apiData.data || !rivenHistory.ok || !rivenHistory.data) {
+  if (!apiData || !rivenHistory) {
     return Response.json(
-      generateErrorResponse("Bad Request", "Could not fetch api data."),
+      { message: "Bad Request", detail: "Could not fetch api data." },
       { status: 404 }
     );
   }
 
-  const rivens: RivenDocument = generateRivenObject(apiData.data);
+  const rivens: RivenDocument = generateRivenObject(apiData);
   const newRivenDoc: RivenDocument = {};
 
   for (let riven in rivens) {
-    const oldRivenData = rivenHistory.data[riven];
+    const oldRivenData = rivenHistory[riven];
     const newRivenData = rivens[riven];
 
-    if (rivenHistory.data[riven]) {
+    if (oldRivenData) {
       const newRivenHistory = updateRivenHistory(newRivenData, oldRivenData);
       newRivenDoc[newRivenHistory.name] = newRivenHistory;
     } else {
@@ -38,7 +36,7 @@ export async function POST() {
   setDoc(historyDocRef, newRivenDoc);
 
   return Response.json(
-    generateSucessfulResponse("Successfully updated riven data"),
+    { message: "Successfully updated riven data" },
     { status: 202 }
   );
 }

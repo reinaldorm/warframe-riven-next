@@ -1,11 +1,6 @@
 import { setDoc, getDoc } from "firebase/firestore";
 import { historyDocRef } from "@/firebase/config";
-import {
-  generateErrorResponse,
-  generateSucessfulResponse,
-  generateRivenObject,
-  getAllRivenDataFromApi,
-} from "@/utils";
+import { generateRivenObject, getAllRivenDataFromApi } from "@/utils";
 
 export async function GET() {
   const snapshot = await getDoc<RivenDocument, RivenDocument>(historyDocRef);
@@ -30,19 +25,18 @@ export async function GET() {
 export async function POST() {
   const apiData = await getAllRivenDataFromApi();
 
-  if (!apiData.ok || !apiData.data) {
+  if (!apiData) {
     return Response.json(
-      generateErrorResponse("Bad Request", "Could not fetch riven data."),
+      { message: "Bad Request", detail: "Could not fetch riven data." },
       { status: 404 }
     );
   }
 
-  const rivens = generateRivenObject(apiData.data);
-
+  const rivens = generateRivenObject(apiData);
   setDoc(historyDocRef, rivens);
 
   return Response.json(
-    generateSucessfulResponse("Successfully updated riven data"),
+    { message: "Successfully overwrited riven data" },
     { status: 202 }
   );
 }
