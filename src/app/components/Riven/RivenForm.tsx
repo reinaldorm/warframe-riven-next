@@ -22,6 +22,7 @@ export default function RivenForm({
   function updateSuggestion() {
     let newSuggestion = suggestions.find((name) => startsWith(name, query));
 
+    console.log("suggestion should update");
     if (newSuggestion) {
       newSuggestion =
         query + newSuggestion.slice(query.length, newSuggestion.length);
