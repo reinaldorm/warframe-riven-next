@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { startsWith } from "@/utils";
 import suggestions from "@/app/suggestions.json";
-import styles from "./riven.module.scss";
+import { startsWith } from "@/utils";
 
+import styles from "./riven.module.scss";
 import type { QueryError } from "./index";
 
 interface RivenFormProps {
@@ -22,7 +22,6 @@ export default function RivenForm({
   function updateSuggestion() {
     let newSuggestion = suggestions.find((name) => startsWith(name, query));
 
-    console.log("suggestion should update");
     if (newSuggestion) {
       newSuggestion =
         query + newSuggestion.slice(query.length, newSuggestion.length);

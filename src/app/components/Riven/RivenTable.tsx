@@ -1,6 +1,7 @@
 import React from "react";
-import styles from "./riven.module.scss";
 import RivenRow from "./RivenRow";
+
+import styles from "./riven.module.scss";
 
 interface RivenTableProps {
   riven: RivenData;
@@ -35,7 +36,7 @@ export default function RivenTable({ riven, updateRiven }: RivenTableProps) {
         <button onClick={() => updateRiven(null)} className={styles.rivenClear}>
           Go back
         </button>
-        <p>Update Weekly</p>
+        <p>Updated whenever warframe wants :D</p>
       </div>
     </div>
   );

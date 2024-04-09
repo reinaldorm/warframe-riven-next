@@ -1,10 +1,10 @@
 import styles from "./riven.module.scss";
 
-interface RivenTitle {
+interface RivenTitleProps {
   riven: RivenData | null;
 }
 
-export default function RivenTitle({ riven }: RivenTitle) {
+export default function RivenTitle({ riven }: RivenTitleProps) {
   return (
     <h1 className={styles.rivenTitle}>
       {riven

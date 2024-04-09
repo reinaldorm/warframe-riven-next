@@ -1,11 +1,12 @@
 "use client";
 
 import React from "react";
-import styles from "./riven.module.scss";
 import RivenTable from "./RivenTable";
 import RivenForm from "./RivenForm";
 import RivenInfo from "./RivenInfo";
 import RivenTitle from "./RivenTitle";
+
+import styles from "./riven.module.scss";
 
 export interface QueryError {
   status: boolean;

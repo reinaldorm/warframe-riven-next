@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
+import Image from "next/image";
 import { Inter } from "next/font/google";
+
 import "./styles/globals.css";
+import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Warframe Riven",
-  description: "See the trading stats of the desired riven.",
+  description: "See the trading statistics of the desired riven.",
 };
 
 export default function RootLayout({
@@ -16,7 +18,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Image
+          src="/icon.png"
+          alt="warframe-logo-tinted-in-blue"
+          width={64}
+          height={64}
+          style={{ marginBottom: 16 }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
